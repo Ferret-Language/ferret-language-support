@@ -4,7 +4,7 @@ description = "Ferret language support for Zed"
 version = "0.0.1"
 schema_version = 1
 authors = ["itsfuad"]
-repository = "https://github.com/itsfuad/zed-ferret"
+repository = "https://github.com/itsfuad/ferret-language-support"
 
 [grammars.ferret]
 repository = "https://github.com/itsfuad/tree-sitter-ferret"
