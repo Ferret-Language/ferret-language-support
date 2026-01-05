@@ -1,4 +1,4 @@
-id = "ferret-language-support"
+id = "ferret"
 name = "Ferret language support"
 description = "Ferret language support for Zed"
 version = "0.0.1"
