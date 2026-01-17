@@ -88,6 +88,7 @@
 
 ; Strings - import paths should be same color as regular strings
 (string_literal) @string
+(char_literal) @string
 (byte_literal) @string
 
 ; Escape sequences
