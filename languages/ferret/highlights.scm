@@ -106,22 +106,19 @@
 
 ; Function definitions
 (function_declaration
-  name: (identifier) @function
-  (#set! priority 200))
+  name: (identifier) @function)
 
 (interface_method
-  name: (identifier) @function
-  (#set! priority 200))
+  name: (identifier) @function)
 
-; Function calls
+; Function calls - match the identifier in call position
 (call_expression
-  function: (identifier) @function
-  (#set! priority 200))
+  function: (identifier) @function)
 
+; Scoped function calls like io::Println
 (call_expression
   function: (scoped_identifier
-    name: (identifier) @function)
-  (#set! priority 200))
+    name: (identifier) @function))
 
 ; Type declarations
 (type_declaration
@@ -154,9 +151,9 @@
 (method_receiver
   name: (identifier) @variable.parameter)
 
-; Variables
-((identifier) @variable
- (#set! priority 5))
+; Variable declarations - highlight the variable name being declared
+(declaration_item
+  name: (identifier) @variable)
 
 ; Constants (uppercase identifiers)
 ((identifier) @constant
