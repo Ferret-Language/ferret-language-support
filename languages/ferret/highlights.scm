@@ -130,18 +130,9 @@
 ; Enum variants
 (enum_variant) @constant
 
-; Scoped identifiers
+; Scoped identifiers - scope is always namespace (module name)
 (scoped_identifier
   scope: (identifier) @namespace)
-
-(scoped_identifier
-  scope: (type_identifier) @type)
-
-(scoped_identifier
-  name: (type_identifier) @constant)
-
-(scoped_identifier
-  name: (identifier) @variable)
 
 ; Struct field access
 (field_expression
