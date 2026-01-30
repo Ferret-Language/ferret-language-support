@@ -135,6 +135,11 @@
 (field_expression
   field: (field_identifier) @property)
 
+; method calls like req.Param(...)
+(call_expression
+  function: (field_expression
+    field: (field_identifier) @function))
+
 ; Struct field definitions
 (field_declaration
   name: (field_identifier) @property)
