@@ -1,7 +1,7 @@
 id = "ferret"
 name = "Ferret language support"
 description = "Ferret language support for Zed"
-version = "0.0.6"
+version = "0.0.7"
 schema_version = 1
 authors = ["itsfuad"]
 repository = "https://github.com/Ferret-Language/ferret-language-support"

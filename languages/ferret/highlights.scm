@@ -43,6 +43,7 @@
   ":="
   "="
   "=>"
+  "!!"
   "!"
   "?"
   "&"
@@ -92,9 +93,6 @@
 (string_literal) @string
 (char_literal) @string
 (byte_literal) @string
-
-; Escape sequences
-(escape_sequence) @string.escape
 
 ; Numbers
 (integer_literal) @number
