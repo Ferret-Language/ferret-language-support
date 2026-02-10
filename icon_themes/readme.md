@@ -1,0 +1,1 @@
+This is a modified clone of existing icon theme. As zed currently doesn't support custom icons, we have to reuse existing ones. We use `ferret.svg` for `.fer` files and `ferret_mod.svg` for `.fer.ret` files. In the future, when zed supports custom icons, we can add new icons specific to Ferret.
