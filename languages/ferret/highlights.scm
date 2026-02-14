@@ -90,79 +90,142 @@
   "."
 ] @punctuation.delimiter
 
+; =========================
 ; Comments
+; =========================
 (line_comment) @comment
 (block_comment) @comment
 
-; Strings - import paths should be same color as regular strings
+; =========================
+; Strings / chars / bytes
+; =========================
 (string_literal) @string
 (char_literal) @string
 (byte_literal) @string
 
+; =========================
 ; Numbers
+; =========================
 (integer_literal) @number
 (float_literal) @number
 
+; =========================
 ; Literals
+; =========================
 (boolean_literal) @boolean
 (none_literal) @constant.builtin
 
-; Function definitions
+; =========================
+; Types
+; =========================
+(primitive_type) @type.builtin
+(type_identifier) @type
+
+(type_declaration
+  name: (type_identifier) @type)
+
+(enum_variant) @constant
+
+; =========================
+; Namespaces
+; =========================
+(scoped_identifier
+  scope: (identifier) @namespace)
+
+; =========================
+; Definitions
+; =========================
 (function_declaration
   name: (identifier) @function)
 
 (interface_method
   name: (identifier) @function)
 
-; Function calls - match the identifier in call position
+; =========================
+; Variables
+; =========================
+(parameter
+  name: (identifier) @variable.parameter)
+
+(method_receiver
+  name: (identifier) @variable.parameter)
+
+(declaration_item
+  name: (identifier) @variable)
+
+((identifier) @constant
+ (#match? @constant "^[A-Z][A-Z0-9_]*$"))
+
+; =========================
+; Properties (field access)
+; =========================
+(field_expression
+  field: (field_identifier) @property)
+
+(field_declaration
+  name: (field_identifier) @property)
+
+(struct_field_init
+  name: (field_identifier) @property)
+
+; =========================
+; Calls
+; =========================
+; Plain call: f(...)
 (call_expression
   function: (identifier) @function)
 
-; Scoped function calls like io::Println
+; Scoped call: io::Println(...)
 (call_expression
   function: (scoped_identifier
     name: (identifier) @function))
 
-; Type declarations
-(type_declaration
-  name: (type_identifier) @type)
-
-; Enum variants
-(enum_variant) @constant
-
-; Scoped identifiers - scope is always namespace (module name)
-(scoped_identifier
-  scope: (identifier) @namespace)
-
-; Struct field access
-(field_expression
-  field: (field_identifier) @property)
-
-; method calls like req.Param(...)
+; Method call: obj.method(...)
+; Must come AFTER @property so it overrides field coloring at call-sites.
 (call_expression
   function: (field_expression
     field: (field_identifier) @function))
 
-; Struct field definitions
-(field_declaration
-  name: (field_identifier) @property)
+; Parenthesized callees: (f)(...), (io::Println)(...), (obj.method)(...)
+(call_expression
+  function: (parenthesized_expression
+    (identifier) @function))
 
-; Struct field initialization
-(struct_field_init
-  name: (field_identifier) @property)
+(call_expression
+  function: (parenthesized_expression
+    (scoped_identifier
+      name: (identifier) @function)))
 
-; Parameters
-(parameter
-  name: (identifier) @variable.parameter)
+(call_expression
+  function: (parenthesized_expression
+    (field_expression
+      field: (field_identifier) @function)))
 
-; Method receiver
-(method_receiver
-  name: (identifier) @variable.parameter)
+; =========================
+; Keywords
+; =========================
+[
+  "let" "const" "fn" "type" "struct" "enum" "union" "interface"
+  "if" "else" "while" "for" "in"
+  "break" "continue" "defer" "fork"
+  "match" "return" "as" "catch"
+  "import" "map" "mut"
+] @keyword
 
-; Variable declarations - highlight the variable name being declared
-(declaration_item
-  name: (identifier) @variable)
+["true" "false"] @boolean
 
-; Constants (uppercase identifiers)
-((identifier) @constant
- (#match? @constant "^[A-Z][A-Z0-9_]*$"))
+; =========================
+; Operators
+; =========================
+[
+  ":=" "=" "=>" "!!" "!" "?" "&" "@" "#"
+  "+" "-" "*" "/" "%" "**"
+  "==" "!=" "<" ">" "<=" ">="
+  "&&" "||" "??" ".." "::" "|" "~" "^" "|>"
+] @operator
+
+; =========================
+; Punctuation
+; =========================
+["(" ")" "[" "]" "{" "}"] @punctuation.bracket
+["," ";" ":" "."] @punctuation.delimiter
