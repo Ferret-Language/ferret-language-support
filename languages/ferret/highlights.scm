@@ -108,6 +108,7 @@
 ; =========================
 (integer_literal) @number
 (float_literal) @number
+(imaginary_literal) @number
 
 ; =========================
 ; Literals
