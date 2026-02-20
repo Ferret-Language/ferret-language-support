@@ -4,6 +4,7 @@
   "const"
   "fn"
   "type"
+  "constraint"
   "struct"
   "enum"
   "union"
@@ -125,6 +126,12 @@
 (type_declaration
   name: (type_identifier) @type)
 
+(constraint_declaration
+  name: (type_identifier) @type)
+
+(type_parameter
+  name: (type_identifier) @type)
+
 (enum_variant) @constant
 
 ; =========================
@@ -187,6 +194,17 @@
   function: (field_expression
     field: (field_identifier) @function))
 
+(generic_call_expression
+  function: (identifier) @function)
+
+(generic_call_expression
+  function: (scoped_identifier
+    name: (identifier) @function))
+
+(generic_call_expression
+  function: (field_expression
+    field: (field_identifier) @function))
+
 ; Parenthesized callees: (f)(...), (io::Println)(...), (obj.method)(...)
 (call_expression
   function: (parenthesized_expression
@@ -206,7 +224,7 @@
 ; Keywords
 ; =========================
 [
-  "let" "const" "fn" "type" "struct" "enum" "union" "interface"
+  "let" "const" "fn" "type" "constraint" "struct" "enum" "union" "interface"
   "if" "else" "while" "for" "in"
   "break" "continue" "defer" "fork"
   "match" "return" "as" "catch"
