@@ -6,7 +6,7 @@ schema_version = 1
 authors = ["itsfuad"]
 repository = "https://github.com/Ferret-Language/ferret-language-support"
 
-icon_themes = ["icon_themes/ferret-icon-theme.json"]
+# icon_themes = ["icon_themes/ferret-icon-theme.json"]
 languages = ["languages/ferret", "languages/ferret-manifest", "languages/ferret-lockfile"]
 capabilities = []
 
