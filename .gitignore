@@ -1,1 +1,9 @@
 grammars
+target/
+extension.wasm
+bin/
+Cargo.lock
+.DS_Store
+*.log
+.vscode/
+.zed/

@@ -1,17 +1,39 @@
 # Ferret Language – Zed Extension
 
-Zed syntax highlighting, indentation, and brackets for the Ferret programming language.
+Zed syntax highlighting, indentation, brackets, and LSP support for the Ferret programming language.
+
+## LSP
+The extension runs the language server using the Ferret compiler at:
+
+```
+<installed dir>/ferret lsp
+```
+
+Because Zed extensions run in a sandbox, the extension does not probe this path. If the binary is missing, Zed will fail to spawn the server.
+
+### Toggle LSP on/off
+Add this to your Zed settings:
+
+```json
+{
+  "lsp": {
+    "ferret-lsp": {
+      "settings": {
+        "enabled": false
+      }
+    }
+  }
+}
+```
 
 ## Local install (dev)
 1. Open Zed.
 2. Run `zed: install dev extension` from the command palette and select this `zed-ferret` folder.
-3. Open a `.fer` file to verify highlighting.
+3. Open a `.fer` file to verify highlighting and LSP diagnostics.
 
 ## Publishing
 1. Ensure `extension.toml` points at the correct grammar repo/revision.
-2. From this directory run `zed extension publish`
-
-
+2. From this directory run `zed extension publish`.
 
 
 # Updating Zed Extension Submodules
@@ -56,7 +78,7 @@ git push
 
 ```bash
 # Check status
-git submodule status extensions/ferret
+git submodule status
 
 # Update submodule
 git submodule update --remote extensions/ferret
@@ -66,7 +88,7 @@ git submodule update --remote extensions/ferret
 
 # Stage and commit
 git add extensions.toml extensions/ferret
-git commit -m "Update ferret extension to version 0.0.4"
+git commit -m "Update ferret to vX.X.X"
 
 # Push
 git push
