@@ -12,16 +12,11 @@ impl zed::Extension for FerretExtension {
         _language_server_id: &zed::LanguageServerId,
         worktree: &zed::Worktree,
     ) -> zed::Result<zed::Command> {
-        let settings = zed::settings::LspSettings::for_worktree("ferret-lsp", worktree)
-            .unwrap_or_default();
-
-        if !lsp_enabled(&settings) {
-            return Err("ferret-lsp disabled in settings".to_string());
-        }
-
         let command = worktree
             .which("ferret")
             .ok_or_else(||"ferret binary not found in PATH".to_string())?;
+        // For Local Development
+        //let command = "/home/fuad/Dev/Ferret-Language/Ferret/bin/ferret".to_string();
         let args = vec!["lsp".to_string()];
         let env = worktree.shell_env();
 
@@ -45,25 +40,8 @@ impl zed::Extension for FerretExtension {
     ) -> zed::Result<Option<zed::serde_json::Value>> {
         let settings = zed::settings::LspSettings::for_worktree("ferret-lsp", worktree)
             .unwrap_or_default();
-
-        let value = settings.settings.and_then(|mut value| {
-            if let zed::serde_json::Value::Object(ref mut map) = value {
-                map.remove("enabled");
-            }
-            Some(value)
-        });
-
-        Ok(value)
+        Ok(settings.settings)
     }
-}
-
-fn lsp_enabled(settings: &zed::settings::LspSettings) -> bool {
-    let enabled = settings
-        .settings
-        .as_ref()
-        .and_then(|value| value.get("enabled"))
-        .and_then(|value| value.as_bool());
-    enabled.unwrap_or(true)
 }
 
 zed::register_extension!(FerretExtension);
