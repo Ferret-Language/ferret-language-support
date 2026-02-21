@@ -2,8 +2,6 @@ use zed_extension_api as zed;
 
 struct FerretExtension;
 
-const FERRET_BIN: &str = "/home/fuad/Dev/Ferret-Language/Ferret/bin/ferret";
-
 impl zed::Extension for FerretExtension {
     fn new() -> Self {
         Self
@@ -21,7 +19,9 @@ impl zed::Extension for FerretExtension {
             return Err("ferret-lsp disabled in settings".to_string());
         }
 
-        let command = FERRET_BIN.to_string();
+        let command = worktree
+            .which("ferret")
+            .ok_or_else(||"ferret binary not found in PATH".to_string())?;
         let args = vec!["lsp".to_string()];
         let env = worktree.shell_env();
 
