@@ -135,7 +135,7 @@
   "if" "else" "while" "for" "in"
   "break" "continue" "defer" "fork" "comptime"
   "match" "return" "as" "catch"
-  "import" "map" "mut" "own"
+  "import" "map" "mut" "own" "move"
 ] @keyword
 
 ["true" "false"] @boolean
@@ -144,7 +144,7 @@
 ; Operators
 ; =========================
 [
-  ":=" "=" "=>" "!!" "!" "?" "&" "@" "#"
+  ":=" "=" "=>" "!!" "!" "?" "&" "#"
   "+" "-" "*" "/" "%" "**"
   "==" "!=" "<" ">" "<=" ">="
   "&&" "||" "??" ".." "::" "|" "~" "^" "|>"
