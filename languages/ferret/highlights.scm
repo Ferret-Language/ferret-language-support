@@ -1,96 +1,3 @@
-; Keywords that tree-sitter generates
-[
-  "let"
-  "const"
-  "fn"
-  "type"
-  "constraint"
-  "struct"
-  "enum"
-  "union"
-  "interface"
-  "if"
-  "else"
-  "while"
-  "for"
-  "in"
-  "break"
-  "continue"
-  "defer"
-  "fork"
-  "match"
-  "return"
-  "as"
-  "catch"
-  "import"
-  "map"
-  "mut"
-] @keyword
-
-; Boolean literals
-[
-  "true"
-  "false"
-] @boolean
-
-; Primitive types - use the node type
-(primitive_type) @type.builtin
-
-; Custom types
-(type_identifier) @type
-
-; Operators
-[
-  ":="
-  "="
-  "=>"
-  "!!"
-  "!"
-  "?"
-  "&"
-  "@"
-  "#"
-  "+"
-  "-"
-  "*"
-  "/"
-  "%"
-  "**"
-  "=="
-  "!="
-  "<"
-  ">"
-  "<="
-  ">="
-  "&&"
-  "||"
-  "%"
-  "??"
-  ".."
-  "::"
-  "|"
-  "~"
-  "^"
-  "|>"
-] @operator
-
-; Punctuation
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-] @punctuation.bracket
-
-[
-  ","
-  ";"
-  ":"
-  "."
-] @punctuation.delimiter
-
 ; =========================
 ; Comments
 ; =========================
@@ -226,9 +133,9 @@
 [
   "let" "const" "fn" "type" "constraint" "struct" "enum" "union" "interface"
   "if" "else" "while" "for" "in"
-  "break" "continue" "defer" "fork"
+  "break" "continue" "defer" "fork" "comptime"
   "match" "return" "as" "catch"
-  "import" "map" "mut"
+  "import" "map" "mut" "own"
 ] @keyword
 
 ["true" "false"] @boolean
