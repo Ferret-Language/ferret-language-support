@@ -23,6 +23,10 @@
   "else"
   "switch"
   "case"
+  "for"
+  "while"
+  "break"
+  "continue"
   "return"
   "static"
   "own"
@@ -30,20 +34,48 @@
   "comptime"
   "take"
   "catch"
+  "as"
+  "defer"
+  "panic"
+  "lock"
+  "unsafe"
 ] @keyword
 
 [
-  "=" "!" "!!" "?" "??" "&" "+" "-" "*" "/" "%"
-  "==" "!=" "<" "<=" ">" ">=" "&&" "||" "::"
+  "="
+  "!"
+  "!!"
+  "?"
+  "??"
+  "&"
+  "+"
+  "-"
+  "*"
+  "/"
+  "%"
+  "=="
+  "!="
+  "<"
+  "<="
+  ">"
+  ">="
+  "&&"
+  "||"
+  "::"
 ] @operator
 
 ["(" ")" "[" "]" "{" "}"] @punctuation.bracket
 ["," ";" ":" "."] @punctuation.delimiter
 
+(attribute
+  name: (identifier) @attribute)
+
 (type_declaration
   name: (identifier) @type)
 
 (named_type (identifier) @type)
+(scoped_identifier
+  name: (identifier) @type)
 
 ((identifier) @type.builtin
  (#any-of? @type.builtin
@@ -75,22 +107,36 @@
 (generic_call_expression
   function: (identifier) @function)
 
+(generic_call_expression
+  function: (scoped_identifier
+    name: (identifier) @function))
+
+(generic_call_expression
+  function: (selector_expression
+    field: (identifier) @function))
+
 (parameter
   name: (identifier) @variable.parameter)
 
 (receiver
   name: (identifier) @variable.parameter)
 
-(let_statement
+(labeled_statement
+  label: (identifier) @label)
+
+(let_clause
   name: (identifier) @variable)
 
-(const_statement
+(const_clause
   name: (identifier) @constant)
 
 (const_declaration
   name: (identifier) @constant)
 
 (field_declaration
+  name: (identifier) @property)
+
+(static_field_declaration
   name: (identifier) @property)
 
 (named_field_initializer
