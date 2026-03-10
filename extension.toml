@@ -1,0 +1,18 @@
+id = "ferret"
+name = "Ferret language support"
+description = "Syntax support for the current Ferret language revision"
+version = "0.1.0"
+schema_version = 1
+authors = ["itsfuad"]
+repository = "https://github.com/Ferret-Language/ferret-language-support"
+
+languages = ["languages/ferret"]
+capabilities = []
+
+[lib]
+kind = "Rust"
+version = "0.2.0"
+
+[grammars.ferret]
+repository = "/home/fuad/Dev/test/tree-sitter-ferret"
+rev = "main"
