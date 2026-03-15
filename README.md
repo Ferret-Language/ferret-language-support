@@ -1,6 +1,6 @@
 # Ferret Language Support
 
-Zed syntax support for the current Ferret language revision.
+Zed language support for the current Ferret language revision.
 
 This extension currently provides:
 
@@ -9,5 +9,38 @@ This extension currently provides:
 - bracket matching
 - indentation rules
 - `.ferr` file recognition
+- LSP wiring (`ferret lsp`)
 
-It intentionally does not include LSP wiring yet.
+## LSP command resolution
+
+The extension resolves the language server command in this order:
+
+1. `lsp.ferret-lsp.settings.binary_path` (if configured)
+2. `ferret` from your PATH (`worktree.which("ferret")`)
+3. fallback dev path: `/home/fuad/Dev/Ferret-compiler-v2/compiler/bin/ferret`
+
+The extension passes `lsp` as default args. You can override args with `lsp.ferret-lsp.settings.args`.
+
+Example Zed settings:
+
+```json
+{
+	"lsp": {
+		"ferret-lsp": {
+			"settings": {
+				"binary_path": "/home/fuad/Dev/Ferret-Language/Ferret/bin/ferret",
+				"args": ["lsp"]
+			}
+		}
+	}
+}
+```
+
+## LSP settings key
+
+Zed LSP settings are read from `ferret-lsp` via:
+
+- `initialization_options`
+- `settings`
+
+The current `Ferret-compiler-v2/compiler/cmd/ferret` CLI exposes an `lsp` subcommand, so no external server binary is required by default.

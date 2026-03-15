@@ -5,7 +5,7 @@
   (enum_type)
   (union_type)
   (error_type)
-  (switch_statement)
+  (match_expression)
   (composite_literal)
 ] @indent
 

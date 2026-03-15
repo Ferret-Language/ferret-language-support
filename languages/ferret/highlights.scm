@@ -21,8 +21,7 @@
   "error"
   "if"
   "else"
-  "switch"
-  "case"
+  "match"
   "for"
   "while"
   "break"
@@ -34,12 +33,16 @@
   "comptime"
   "take"
   "catch"
+  "is"
   "as"
   "defer"
+  "release"
   "panic"
   "lock"
   "unsafe"
 ] @keyword
+
+(move) @keyword
 
 [
   "="
@@ -62,6 +65,7 @@
   "&&"
   "||"
   "::"
+  "=>"
 ] @operator
 
 ["(" ")" "[" "]" "{" "}"] @punctuation.bracket
