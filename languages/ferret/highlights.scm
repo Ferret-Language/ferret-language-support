@@ -19,6 +19,7 @@
   "enum"
   "union"
   "error"
+  "constraint"
   "if"
   "else"
   "match"
@@ -27,9 +28,6 @@
   "break"
   "continue"
   "return"
-  "static"
-  "own"
-  "raw"
   "comptime"
   "take"
   "catch"
@@ -40,6 +38,7 @@
   "panic"
   "lock"
   "unsafe"
+  "self"
 ] @keyword
 
 (move) @keyword
@@ -52,7 +51,9 @@
   "??"
   "&"
   "+"
+  "++"
   "-"
+  "--"
   "*"
   "/"
   "%"
@@ -77,22 +78,44 @@
 (type_declaration
   name: (identifier) @type)
 
+(constraint_declaration
+  name: (identifier) @type)
+
+(function_declaration
+  owner: (identifier) @type)
+
+(function_declaration
+  owner: (scoped_identifier
+    name: (identifier) @type))
+
 (named_type (identifier) @type)
+(generic_type
+  name: (identifier) @type)
+(generic_type
+  name: (scoped_identifier
+    name: (identifier) @type))
 (scoped_identifier
   name: (identifier) @type)
 
+(composite_literal
+  type: (named_type (identifier) @type))
+
+(composite_literal
+  type: (scoped_identifier
+    name: (identifier) @type))
+
 ((identifier) @type.builtin
  (#any-of? @type.builtin
-  "bool" "char" "string"
+  "bool" "char" "string" "Self"
   "u8" "u16" "u32" "u64" "usize"
   "i8" "i16" "i32" "i64" "isize"
   "f32" "f64" "void"))
 
-(function_declaration
-  name: (identifier) @function)
+((identifier) @keyword
+ (#eq? @keyword "self"))
 
 (function_declaration
-  name: (destructor_name) @function)
+  name: (identifier) @function)
 
 (interface_method
   name: (identifier) @function)
@@ -119,11 +142,13 @@
   function: (selector_expression
     field: (identifier) @function))
 
-(parameter
+(typed_parameter
   name: (identifier) @variable.parameter)
 
-(receiver
-  name: (identifier) @variable.parameter)
+(type_parameter
+  name: (identifier) @type)
+
+(self_parameter) @keyword
 
 (labeled_statement
   label: (identifier) @label)
@@ -138,9 +163,6 @@
   name: (identifier) @constant)
 
 (field_declaration
-  name: (identifier) @property)
-
-(static_field_declaration
   name: (identifier) @property)
 
 (named_field_initializer
