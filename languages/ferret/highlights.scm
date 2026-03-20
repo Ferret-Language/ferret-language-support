@@ -175,6 +175,38 @@
   function: (selector_expression
     field: (identifier) @function))
 
+; Recovery highlighting for invalid empty generic calls like `foo<>()`.
+(ERROR
+  (identifier) @function
+  (argument_list))
+
+(ERROR
+  (scoped_identifier
+    name: (identifier) @function)
+  (argument_list))
+
+(ERROR
+  (selector_expression
+    field: (identifier) @function)
+  (argument_list))
+
+(binary_expression
+  left: (identifier) @function
+  (ERROR)
+  right: (parenthesized_expression))
+
+(binary_expression
+  left: (scoped_identifier
+    name: (identifier) @function)
+  (ERROR)
+  right: (parenthesized_expression))
+
+(binary_expression
+  left: (selector_expression
+    field: (identifier) @function)
+  (ERROR)
+  right: (parenthesized_expression))
+
 (typed_parameter
   name: (identifier) @variable.parameter)
 
