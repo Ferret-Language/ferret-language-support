@@ -45,6 +45,11 @@
 
 [
   "="
+  "+="
+  "-="
+  "*="
+  "/="
+  "%="
   "!"
   "!!"
   "?"
@@ -88,21 +93,49 @@
   owner: (scoped_identifier
     name: (identifier) @type))
 
+(function_declaration
+  owner: (generic_type
+    name: (identifier) @type))
+
+(function_declaration
+  owner: (generic_type
+    name: (scoped_identifier
+      name: (identifier) @type)))
+
 (named_type (identifier) @type)
 (generic_type
   name: (identifier) @type)
 (generic_type
   name: (scoped_identifier
     name: (identifier) @type))
+
+(named_type
+  (scoped_identifier
+    name: (identifier) @type))
+
 (scoped_identifier
-  name: (identifier) @type)
+  scope: (identifier) @type)
+
+(scoped_identifier
+  scope: (scoped_identifier
+    name: (identifier) @type))
+
+(named_type
+  (scoped_identifier
+    scope: (identifier) @type))
+
+(named_type
+  (scoped_identifier
+    scope: (scoped_identifier
+      name: (identifier) @type)))
 
 (composite_literal
   type: (named_type (identifier) @type))
 
 (composite_literal
-  type: (scoped_identifier
-    name: (identifier) @type))
+  type: (named_type
+    (scoped_identifier
+      name: (identifier) @type)))
 
 ((identifier) @type.builtin
  (#any-of? @type.builtin

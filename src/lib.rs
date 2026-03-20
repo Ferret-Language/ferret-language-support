@@ -16,12 +16,12 @@ impl zed::Extension for FerretExtension {
         let settings =
             zed::settings::LspSettings::for_worktree("ferret-lsp", worktree).unwrap_or_default();
 
-        // let mut command = worktree
-        //     .which("ferret")
-        //     .ok_or_else(||"ferret binary not found in PATH".to_string())?;
+        let mut command = worktree
+            .which("ferret")
+            .ok_or_else(||"ferret binary not found in PATH".to_string())?;
 
         // For local extension/compiler development, you can force a fixed path:
-        let mut command = "/home/fuad/Dev/Ferret-compiler-v2/compiler/bin/ferret".to_string();
+        //let mut command = "/home/fuad/Dev/Ferret-compiler-v2/compiler/bin/ferret".to_string();
 
         let mut args = vec!["lsp".to_string()];
         if let Some(Value::Object(obj)) = settings.settings.as_ref() {
