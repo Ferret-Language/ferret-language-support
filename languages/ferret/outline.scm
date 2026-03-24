@@ -9,11 +9,6 @@
   type_parameters: (type_parameter_list)? @context
   name: (identifier) @name) @item
 
-(constraint_declaration
-  "constraint" @context
-  type_parameters: (type_parameter_list)? @context
-  name: (identifier) @name) @item
-
 (const_declaration
   "const" @context
   name: (identifier) @name) @item

@@ -19,7 +19,6 @@
   "enum"
   "union"
   "error"
-  "constraint"
   "if"
   "else"
   "match"
@@ -55,6 +54,7 @@
   "?"
   "??"
   "&"
+  "^"
   "+"
   "++"
   "-"
@@ -81,9 +81,6 @@
   name: (identifier) @attribute)
 
 (type_declaration
-  name: (identifier) @type)
-
-(constraint_declaration
   name: (identifier) @type)
 
 (function_declaration
