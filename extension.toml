@@ -1,6 +1,6 @@
 id = "ferret"
 name = "Ferret language support"
-description = "Syntax support for the current Ferret language revision"
+description = "Ferret language support for Zed"
 version = "0.0.10"
 schema_version = 1
 authors = ["itsfuad"]
