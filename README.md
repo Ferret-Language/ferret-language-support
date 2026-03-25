@@ -15,18 +15,18 @@ This extension currently provides:
 
 The extension resolves the language server command in this order:
 
-1. `lsp.ferret-lsp.settings.binary_path` (if configured)
+1. `lsp.ferretls.settings.binary_path` (if configured)
 2. `ferret` from your PATH (`worktree.which("ferret")`)
 3. fallback dev path: `/home/fuad/Dev/Ferret-compiler-v2/compiler/bin/ferret`
 
-The extension passes `lsp` as default args. You can override args with `lsp.ferret-lsp.settings.args`.
+The extension passes `lsp` as default args. You can override args with `lsp.ferretls.settings.args`.
 
 Example Zed settings:
 
 ```json
 {
 	"lsp": {
-		"ferret-lsp": {
+		"ferretls": {
 			"settings": {
 				"binary_path": "/home/fuad/Dev/Ferret-Language/Ferret/bin/ferret",
 				"args": ["lsp"]
@@ -38,7 +38,7 @@ Example Zed settings:
 
 ## LSP settings key
 
-Zed LSP settings are read from `ferret-lsp` via:
+Zed LSP settings are read from `ferretls` via:
 
 - `initialization_options`
 - `settings`

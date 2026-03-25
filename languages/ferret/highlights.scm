@@ -72,6 +72,7 @@
   "&&"
   "||"
   "::"
+  "..."
   ".."
   "..="
   "=>"
@@ -80,6 +81,9 @@
 
 ["(" ")" "[" "]" "{" "}"] @punctuation.bracket
 ["," ";" ":" "."] @punctuation.delimiter
+
+; In `start..end:step`, treat step separator as an operator.
+(range_expression ":" @operator)
 
 (attribute
   name: (identifier) @attribute)

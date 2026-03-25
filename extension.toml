@@ -1,12 +1,11 @@
 id = "ferret"
 name = "Ferret language support"
 description = "Syntax support for the current Ferret language revision"
-version = "0.1.0"
+version = "0.0.10"
 schema_version = 1
 authors = ["itsfuad"]
 repository = "https://github.com/Ferret-Language/ferret-language-support"
 
-# icon_themes = ["icon_themes/ferret-icon-theme.json"]
 languages = ["languages/ferret", "languages/ferret-manifest", "languages/ferret-lockfile"]
 capabilities = []
 
@@ -15,7 +14,7 @@ kind = "Rust"
 version = "0.2.0"
 
 [grammars.ferret]
-repository = "/home/fuad/Dev/Ferret-compiler-v2/tree-sitter-ferret"
+repository = "https://github.com/Ferret-Language/tree-sitter-ferret"
 rev = "main"
 
 [grammars.ferret_manifest]
@@ -26,8 +25,8 @@ rev = "main"
 repository = "https://github.com/Ferret-Language/tree-sitter-ferret-lockfile"
 rev = "main"
 
-[language_servers.ferret-lsp]
+[language_servers.ferretls]
 languages = ["Ferret"]
 
-[language_servers.ferret-lsp.language_ids]
+[language_servers.ferretls.language_ids]
 Ferret = "ferret"

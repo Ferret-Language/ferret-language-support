@@ -14,7 +14,7 @@ impl zed::Extension for FerretExtension {
         worktree: &zed::Worktree,
     ) -> zed::Result<zed::Command> {
         let settings =
-            zed::settings::LspSettings::for_worktree("ferret-lsp", worktree).unwrap_or_default();
+            zed::settings::LspSettings::for_worktree("ferretls", worktree).unwrap_or_default();
 
         let mut command = worktree
             .which("ferret")
@@ -51,7 +51,7 @@ impl zed::Extension for FerretExtension {
         worktree: &zed::Worktree,
     ) -> zed::Result<Option<zed::serde_json::Value>> {
         let settings =
-            zed::settings::LspSettings::for_worktree("ferret-lsp", worktree).unwrap_or_default();
+            zed::settings::LspSettings::for_worktree("ferretls", worktree).unwrap_or_default();
         Ok(settings.initialization_options)
     }
 
@@ -61,7 +61,7 @@ impl zed::Extension for FerretExtension {
         worktree: &zed::Worktree,
     ) -> zed::Result<Option<zed::serde_json::Value>> {
         let settings =
-            zed::settings::LspSettings::for_worktree("ferret-lsp", worktree).unwrap_or_default();
+            zed::settings::LspSettings::for_worktree("ferretls", worktree).unwrap_or_default();
         Ok(settings.settings)
     }
 }
