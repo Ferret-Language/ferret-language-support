@@ -19,6 +19,10 @@
     "mut"? @context
     name: (identifier) @name)) @item
 
+(test_declaration
+  "test" @context
+  name: (string_literal) @name) @item
+
 ; Free functions
 (function_declaration
   !owner

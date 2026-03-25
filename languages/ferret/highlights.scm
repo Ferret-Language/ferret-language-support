@@ -12,6 +12,7 @@
   "let"
   "mut"
   "fn"
+  "test"
   "type"
   "copy"
   "struct"
@@ -68,6 +69,8 @@
   "<="
   ">"
   ">="
+  ".."
+  "..="
   "&&"
   "||"
   "::"
@@ -146,6 +149,9 @@
 
 (function_declaration
   name: (identifier) @function)
+
+(test_declaration
+  "test" @keyword)
 
 (interface_method
   name: (identifier) @function)

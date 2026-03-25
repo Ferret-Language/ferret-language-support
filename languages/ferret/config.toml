@@ -1,6 +1,6 @@
 name = "Ferret"
 grammar = "ferret"
-path_suffixes = ["ferr"]
+path_suffixes = ["fer"]
 line_comments = ["// "]
 block_comments = [["/*", "*/"]]
 icon = "rs"
