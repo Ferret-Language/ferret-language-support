@@ -69,13 +69,14 @@
   "<="
   ">"
   ">="
-  ".."
-  "..="
   "&&"
   "||"
   "::"
+  ".."
+  "..="
   "=>"
 ] @operator
+
 
 ["(" ")" "[" "]" "{" "}"] @punctuation.bracket
 ["," ";" ":" "."] @punctuation.delimiter
