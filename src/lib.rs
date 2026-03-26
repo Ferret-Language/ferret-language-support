@@ -1,7 +1,49 @@
-use zed_extension_api as zed;
-use zed::serde_json::Value;
+use zed_extension_api::{self as zed, settings::LspSettings, LanguageServerId, Result};
+
+struct FerretBinary {
+    path: String,
+    args: Option<Vec<String>>,
+}
 
 struct FerretExtension;
+
+impl FerretExtension {
+    const LANGUAGE_SERVER_ID: &'static str = "ferretls";
+
+    fn language_server_binary(
+        &self,
+        _language_server_id: &LanguageServerId,
+        worktree: &zed::Worktree,
+    ) -> Result<FerretBinary> {
+        let binary_settings = LspSettings::for_worktree(Self::LANGUAGE_SERVER_ID, worktree)
+            .ok()
+            .and_then(|settings| settings.binary);
+        let binary_args = binary_settings
+            .as_ref()
+            .and_then(|settings| settings.arguments.clone());
+
+        if let Some(path) = binary_settings
+            .as_ref()
+            .and_then(|settings| settings.path.as_ref())
+            .filter(|path| !path.trim().is_empty())
+            .cloned()
+        {
+            return Ok(FerretBinary {
+                path,
+                args: binary_args,
+            });
+        }
+
+        if let Some(path) = worktree.which("ferret") {
+            return Ok(FerretBinary {
+                path,
+                args: binary_args,
+            });
+        }
+
+        Err("The Ferret language server binary (ferret) is not available in your environment (PATH). Configure `lsp.ferretls.binary.path` or install `ferret`.".to_string())
+    }
+}
 
 impl zed::Extension for FerretExtension {
     fn new() -> Self {
@@ -10,58 +52,35 @@ impl zed::Extension for FerretExtension {
 
     fn language_server_command(
         &mut self,
-        _language_server_id: &zed::LanguageServerId,
+        language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
-    ) -> zed::Result<zed::Command> {
-        let settings =
-            zed::settings::LspSettings::for_worktree("ferretls", worktree).unwrap_or_default();
+    ) -> Result<zed::Command> {
+        let binary = self.language_server_binary(language_server_id, worktree)?;
 
-        let mut command = worktree
-            .which("ferret")
-            .ok_or_else(||"ferret binary not found in PATH".to_string())?;
-
-        // For local extension/compiler development, you can force a fixed path:
-        //let mut command = "/home/fuad/Dev/Ferret-compiler-v2/compiler/bin/ferret".to_string();
-
-        let mut args = vec!["lsp".to_string()];
-        if let Some(Value::Object(obj)) = settings.settings.as_ref() {
-            if let Some(Value::String(path)) = obj.get("binary_path") {
-                if !path.trim().is_empty() {
-                    command = path.clone();
-                }
-            }
-            if let Some(Value::Array(user_args)) = obj.get("args") {
-                let parsed_args: Vec<String> = user_args
-                    .iter()
-                    .filter_map(|v| v.as_str().map(ToString::to_string))
-                    .collect();
-                if !parsed_args.is_empty() {
-                    args = parsed_args;
-                }
-            }
-        }
-        let env = worktree.shell_env();
-
-        Ok(zed::Command { command, args, env })
+        Ok(zed::Command {
+            command: binary.path,
+            args: binary.args.unwrap_or_else(|| vec!["lsp".to_string()]),
+            env: worktree.shell_env(),
+        })
     }
 
     fn language_server_initialization_options(
         &mut self,
-        _language_server_id: &zed::LanguageServerId,
+        language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> zed::Result<Option<zed::serde_json::Value>> {
         let settings =
-            zed::settings::LspSettings::for_worktree("ferretls", worktree).unwrap_or_default();
+            LspSettings::for_worktree(language_server_id.as_ref(), worktree).unwrap_or_default();
         Ok(settings.initialization_options)
     }
 
     fn language_server_workspace_configuration(
         &mut self,
-        _language_server_id: &zed::LanguageServerId,
+        language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> zed::Result<Option<zed::serde_json::Value>> {
         let settings =
-            zed::settings::LspSettings::for_worktree("ferretls", worktree).unwrap_or_default();
+            LspSettings::for_worktree(language_server_id.as_ref(), worktree).unwrap_or_default();
         Ok(settings.settings)
     }
 }
