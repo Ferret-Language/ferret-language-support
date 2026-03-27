@@ -3,7 +3,7 @@ grammar = "ferret"
 path_suffixes = ["fer"]
 line_comments = ["// "]
 block_comments = [["/*", "*/"]]
-icon = "rs"
+icon = "ferret_icon.svg"
 tab_size = 4
 hard_tabs = false
 

@@ -3,7 +3,7 @@ grammar = "ferret_manifest"
 path_suffixes = ["fer.ret"]
 first_line_pattern = "^\\s*\\[package\\]"
 line_comments = ["# "]
-icon = "toml"
+icon = "ferret_mod.svg"
 tab_size = 2
 hard_tabs = false
 
